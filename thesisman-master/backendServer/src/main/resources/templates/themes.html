@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Themes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Available Thesis Themes</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Monthly Pay</th>
+                    <th>Creator</th>
+                    <th>Masters</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="theme : ${themes}">
+                    <td th:text="${theme.title}">Title</td>
+                    <td th:text="${theme.description}">Description</td>
+                    <td th:text="${theme.monthlyPay}">Monthly Pay</td>
+                    <td th:text="${theme.creatorName}">Creator</td>
+                    <td>
+                        <ul>
+                            <li th:each="masterName : ${theme.masterNames}" th:text="${masterName}">Master Name</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

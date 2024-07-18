@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Thesis Theme</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+    <div id="container" class="container">
+        <h1>Submit Company Thesis Theme</h1>
+		<div th:if="${message}">
+            <p th:text="${message}" class="message"></p>
+        </div>
+        <div th:if="${error}">
+            <p th:text="${error}" class="error"></p>
+        </div>
+        <form th:action="@{/api/submit-theme-company}" method="post">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea><br><br>
+
+            <label for="monthlyPay">Monthly Pay:</label>
+            <input type="number" step="0.01" id="monthlyPay" name="monthlyPay" required><br><br>
+
+            <label for="creatorUsername">Creator Username:</label>
+            <input type="text" id="creatorUsername" name="creatorUsername" required><br><br>
+
+            <label>Compatible Masters:</label>
+			<div th:each="master : ${availableMasters}">
+			    <input type="checkbox" name="masterIds" th:value="${master.id}" id="master-${master.id}"/>
+			    <label th:for="'master-' + ${master.id}" th:text="${master.name}"></label><br>
+			</div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

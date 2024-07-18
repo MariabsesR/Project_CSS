@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule Thesis Defence</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Schedule Thesis Defence</h1>
+		<div th:if="${message}">
+            <p th:text="${message}" class="message"></p>
+        </div>
+        <div th:if="${error}">
+            <p th:text="${error}" class="error"></p>
+        </div>
+        <form th:action="@{/api/scheduleDefence}" method="post">
+            <label for="documentId">Select Document:</label>
+            <select id="documentId" name="documentId" required>
+                <option th:each="document : ${documents}" th:value="${document.id}" th:text="${document.id}"></option>
+            </select><br><br>
+
+            <label for="isInPerson">Defence Type:</label>
+            <select id="isInPerson" name="isInPerson" required>
+                <option value="true">In Person</option>
+                <option value="false">Remote</option>
+            </select><br><br>
+
+            <label for="timeSlotId">Select Time Slot:</label>
+            <select id="timeSlotId" name="timeSlotId" required>
+                <option th:each="timeSlot : ${timeSlots}" th:value="${timeSlot.id}" th:text="${timeSlot.startTime + ' - ' + timeSlot.endTime + ' ' + timeSlot.day}"></option>
+            </select><br><br>
+
+            <label for="duration">Select Duration:</label>
+            <select id="duration" name="duration" required>
+                <option value="60">60 min</option>
+            </select><br><br>
+
+            <label for="roomId">Room (if in person):</label>
+            <select id="roomId" name="roomId">
+                <option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.id}"></option>
+            </select><br><br>
+
+            <button type="submit">Schedule Defence</button>
+        </form>
+    </div>
+</body>
+</html>

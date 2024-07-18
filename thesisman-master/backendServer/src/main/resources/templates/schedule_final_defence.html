@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule Final Thesis Defense</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Schedule Final Thesis Defense</h1>
+        <div th:if="${message}">
+            <p th:text="${message}" class="message"></p>
+        </div>
+        <div th:if="${error}">
+            <p th:text="${error}" class="error"></p>
+        </div>
+        <form th:action="@{/api/scheduleFinalDefence}" method="post">
+            <label for="documentId">Select Document:</label>
+            <select id="documentId" name="documentId" required>
+                <option th:each="document : ${documents}" th:value="${document.id}" th:text="${document.id}"></option>
+            </select><br><br>
+
+            <label for="isInPerson">Defense Type:</label>
+            <select id="isInPerson" name="isInPerson" required>
+                <option value="true">In Person</option>
+                <option value="false">Remote</option>
+            </select><br><br>
+
+            <label for="timeSlotId">Select Time Slot:</label>
+            <select id="timeSlotId" name="timeSlotId" required>
+                <option th:each="timeSlot : ${timeSlots}" th:value="${timeSlot.id}" th:text="${timeSlot.startTime + ' - ' + timeSlot.endTime + ' ' + timeSlot.day}"></option>
+            </select><br><br>
+
+            <label for="duration">Select Duration:</label>
+            <select id="duration" name="duration" required>
+                <option value="90">90 min</option>
+            </select><br><br>
+
+            <label for="roomId">Room (if in person):</label>
+            <select id="roomId" name="roomId">
+                <option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.id}"></option>
+            </select><br><br>
+            
+            <label for="presidentId">Select President of the Jury:</label>
+            <select id="presidentId" name="presidentId" required>
+                <option th:each="teacher : ${teachers}" th:value="${teacher.id}" th:text="${teacher.id}"></option>
+            </select><br><br>
+            
+            <label for="member1Id">Select Jury Member 1:</label>
+            <select id="member1Id" name="member1Id" required>
+                <option th:each="teacher : ${teachers}" th:value="${teacher.id}" th:text="${teacher.id}"></option>
+            </select><br><br>
+            
+            <label for="member2Id">Select Jury Member 2:</label>
+            <select id="member2Id" name="member2Id" required>
+                <option th:each="teacher : ${teachers}" th:value="${teacher.id}" th:text="${teacher.id}"></option>
+            </select><br><br>
+
+            <button type="submit">Schedule Final Defense</button>
+        </form>
+    </div>
+</body>
+</html>

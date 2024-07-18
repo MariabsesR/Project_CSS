@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Registration</title>
+    <!-- Add your CSS stylesheets and other head content here -->
+</head>
+<body>
+    <div id="container" class="container" th:fragment="layout">
+        <!-- Header Section -->
+        <header>
+            <h1>Welcome to Employee Registration</h1>
+            <!-- Add navigation links or other header content here -->
+        </header>
+
+        <!-- Main Content Section -->
+        <main>
+            <!-- Include the content of the specific page within this section -->
+			<section th:replace="${content}"></section>
+        </main>
+
+        <!-- Footer Section -->
+        <footer>
+            <!-- Add footer content here -->
+        </footer>
+    </div>
+</body>
+</html>

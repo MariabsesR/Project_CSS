@@ -1,0 +1,4 @@
+How to run javafxapp:
+-change localhost and 8080 to in and port of the running server.
+-must be run inside of javafxexample
+java --module-path "javafx-sdk-21.0.3\lib" --add-modules javafx.controls,javafx.fxml,javafx.web -jar javaFXApp_students.jar http://localhost:8080/api

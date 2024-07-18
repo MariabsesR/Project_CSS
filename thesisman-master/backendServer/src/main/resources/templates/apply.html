@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Apply for Thesis Themes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Available Thesis Themes for Application</h1>
+        <div th:if="${message}">
+            <p th:text="${message}" class="message"></p>
+        </div>
+        <div th:if="${error}">
+            <p th:text="${error}" class="error"></p>
+        </div>
+        <form th:action="@{/api/apply}" method="post">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Monthly Pay</th>
+                        <th>Creator</th>
+                        <th>Masters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="theme : ${themes}">
+                        <td>
+                            <span th:if="${theme.applied}">Applied</span>
+                            <input th:unless="${theme.applied}" type="checkbox" name="themeIds" th:value="${theme.id}" />
+                        </td>
+                        <td th:text="${theme.title}">Title</td>
+                        <td th:text="${theme.description}">Description</td>
+                        <td th:text="${theme.monthlyPay}">Monthly Pay</td>
+                        <td th:text="${theme.creatorName}">Creator</td>
+                        <td>
+                            <ul>
+                                <li th:each="masterName : ${theme.masterNames}" th:text="${masterName}">Master Name</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="hidden" name="studentId" th:value="${studentId}" />
+            <button type="submit">Apply</button>
+        </form>
+    </div>
+</body>
+</html>

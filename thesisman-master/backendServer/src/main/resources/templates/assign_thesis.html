@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign Thesis Themes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Assign Thesis Themes to Students</h1>
+		<div th:if="${message}">
+            <p th:text="${message}" class="message"></p>
+        </div>
+        <div th:if="${error}">
+            <p th:text="${error}" class="error"></p>
+        </div>
+        <!-- Form to select student and thesis themes -->
+        <form th:action="@{/api/assign}" method="post">
+            <label for="studentId">Select Student:</label>
+            <select id="studentId" name="studentId">
+                <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.name}"></option>
+            </select><br><br>
+        
+            <!-- Add a hidden field to capture the selected student's ID -->
+            <input type="hidden" name="selectedStudentId" th:value="${studentId}" />
+        
+            <label for="themeIds">Select Thesis Themes:</label>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Monthly Pay</th>
+                        <th>Creator</th>
+                        <th>Masters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="theme : ${themes}">
+                        <td>
+                            <span th:if="${theme.applied}">Applied</span>
+                            <input th:unless="${theme.applied}" type="checkbox" name="themeIds" th:value="${theme.id}" />
+                        </td>
+                        <td th:text="${theme.title}">Title</td>
+                        <td th:text="${theme.description}">Description</td>
+                        <td th:text="${theme.monthlyPay}">Monthly Pay</td>
+                        <td th:text="${theme.creatorName}">Creator</td>
+                        <td>
+                            <ul>
+                                <li th:each="masterName : ${theme.masterNames}" th:text="${masterName}">Master Name</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br><br>
+            <button type="submit">Assign Themes</button>
+        </form>
+    </div>
+</body>
+</html>

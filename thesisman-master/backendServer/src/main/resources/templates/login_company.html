@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Company Employee Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        #container {
+            margin: auto;
+            max-width: 500px;
+            text-align: center;
+        }
+        .button-group {
+            margin-top: 20px;
+        }
+        .button-group button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" class="container">
+        <h1>Company Employee Login</h1>
+		<div th:if="${message}">
+            <p th:text="${message}" class="message"></p>
+        </div>
+        <div th:if="${error}">
+            <p th:text="${error}" class="error"></p>
+        </div>
+        <form action="#" th:action="@{/api/logincompany}" th:object="${CompanyEmployeeDTO}" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <div class="button-group">
+                <button type="submit">Login</button>
+                <a href="/api/register-company-employee" class="button">Register</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
